@@ -12,6 +12,17 @@ codigo_inver=12715
 ingreso=True
 error=True
 
+#Captchas seguridad
+"""
+captcha1=7-(5*1)
+captcha2=(5*2)-(7+1)
+captcha3=(5%2)+(7%2)
+captcha4=(7//2)-(5%2)
+captcha5=(5*7)-2**5-1
+captcha=721+2
+"""
+
+
 #Este loop valida el nombre de usuario inicialmente
 while ingreso:
 
@@ -46,36 +57,37 @@ while ingreso:
             if password==codigo_inver:
 
                 def captcha1():
-                    print('(-5*1)+7= ')
+                    return 7-(5*1)
 
                 def captcha2():
-	                print('(5*1)+2= ')
+                    return (5*2)-(7+1)
 
                 def captcha3():
-	                print('(7-(2*1)= ')
+                    return (5%2)+(7%2)
+
+                def captcha4():
+                    return (7//2)-(5%2)
+
+                def captcha5():
+                    return (5*7)-2**5-1
 
                 switch_captcha = {
-	                1: captcha1,
-	                2: captcha2,
-	                3: captcha3,}
-
-                switch_resultados = {
-                	1: 2,
-	                2: 7,
-	                3: 5,}
-
-                index=random.randint(1,3)
+                    1: captcha1,
+                    2: captcha2,
+                    3: captcha3,
+                    4: captcha4,
+                    5: captcha5,}
 
                 #Este while permite asegurarse que captcha sera un numero entero
                 while error:
                     #El try except permite tratar el error por ingresar un string
                     try:
-                        print("Captcha Seguridad \n")
-                        #tomamos la función asociada a la variable y la invocamos
-                        switch_captcha.get(index)()
-                        print("\n")
+                        print("Captcha Seguridad")
+                        #Calculo la operacion de forma aleatoria para obtener el penultimo numero
+                        resul_operacion=switch_captcha.get(random.randint(1,5))()
+
                         #Guardo el resultado del captcha capturado del usuario
-                        captcha=int(input("Cual es el resultado de la siguiente operacion: "))
+                        captcha=int(input(f"721+{resul_operacion}: "))
                         break
                     except ValueError:
                         print("Por favor ingrese el resultado en numeros")
@@ -85,13 +97,12 @@ while ingreso:
                 while ingreso:
 
                     #Validar que la contraseña ingresada sea el valor verdadero de la credencial
-                    if captcha==switch_resultados[index]:
-                        print("Sesión Iniciada") #Mensaje de sesion iniciada
+                    if captcha==723:
+                        print("Sesión iniciada") #Mensaje de sesion iniciada
                         ingreso=False #Cambio la bandera a False, para terminar el programa
                     else:
                         print("Error") #Muestro mensaje de error porque la contraseña no coincide
                         ingreso=False #Cambio la bandera a False, para terminar el programa
-                #
 
             else:
                 print("Error") #Muestro mensaje de error porque la contraseña no coincide
