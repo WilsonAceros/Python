@@ -3,17 +3,15 @@ import time #Para poder usar el time.sleep()
 import os #Para poder usar os.system
 
 #Mensaje de inicio
-
 print("Bienvenido al sistema de ubicación para zonas públicas WIFI")
 
 #Credenciales de entrada
 codigo_grupo="51721"
 codigo_inver="12715"
-captcha_correct="723"
 
 #Banderas para permanecer o salir de los while
 ingreso=True
-#error=True
+error=True
 
 #Este loop valida el nombre de usuario inicialmente
 while ingreso:
@@ -76,22 +74,20 @@ while ingreso:
                     5: captcha5,}
 
                 #Este while permite asegurarse que captcha sera un numero entero
-                #while error:
-                print("Captcha Seguridad")
-                resul_operacion=switch_captcha.get(random.randint(1,5))()
-                captcha=input(f"721+{resul_operacion}: ")
+                while error:
+
                     #El try except permite tratar el error por ingresar un string
-                """ try:
+                    try:
                         print("Captcha Seguridad")
                         #Calculo la operacion de forma aleatoria para obtener el penultimo numero
                         resul_operacion=switch_captcha.get(random.randint(1,5))()
-
+                        captcha_correct=721+resul_operacion
                         #Guardo el resultado del captcha capturado del usuario
                         captcha=int(input(f"721+{resul_operacion}: "))
                         break
                     except ValueError:
                         print("Por favor ingrese el resultado en numeros")
-                        continue"""
+                        continue
 
                 #Loop para validar captcha seguridad
                 while ingreso:
