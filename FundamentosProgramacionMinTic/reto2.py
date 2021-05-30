@@ -7,39 +7,44 @@ import os #Para poder usar os.system
 print("Bienvenido al sistema de ubicación para zonas públicas WIFI")
 
 #Credenciales de entrada
-codigo_grupo=51721
-codigo_inver=12715
+codigo_grupo="51721"
+codigo_inver="12715"
+captcha_correct="723"
 
 #Banderas para permanecer o salir de los while
 ingreso=True
-error=True
+#error=True
 
 #Este loop valida el nombre de usuario inicialmente
 while ingreso:
 
     #Este while permite asegurarse que el nombre de usuario sera un numero entero
-    while error:
+    #while error:
 
-        #El try except permite tratar el error por ingresar un string
+    usuario=input("Nombre de Usuario: ")
+
+    """ #El try except permite tratar el error por ingresar un string
         try:
             usuario=int(input("Nombre de Usuario: "))
             break
         except ValueError:
             print("Por favor ingresa el usuario correspondiente al numero de grupo")
-            continue
+            continue"""
 
     #Validar que el usuario ingresado sea el valor verdadero de la credencial
     if usuario==codigo_grupo:
 
         #Este while permite asegurarse que la contraseña sera un numero entero
-        while error:
+        #while error:
+
+        password=input("Contraseña: ")
             #El try except permite tratar el error por ingresar un string
-            try:
+        """     try:
                 password=int(input("Contraseña: "))
                 break
             except ValueError:
                 print("Por favor ingresa la contraseña en numeros")
-                continue
+                continue"""
 
         #Loop para validar la contraseña
         while ingreso:
@@ -71,9 +76,12 @@ while ingreso:
                     5: captcha5,}
 
                 #Este while permite asegurarse que captcha sera un numero entero
-                while error:
+                #while error:
+                print("Captcha Seguridad")
+                resul_operacion=switch_captcha.get(random.randint(1,5))()
+                captcha=input(f"721+{resul_operacion}: ")
                     #El try except permite tratar el error por ingresar un string
-                    try:
+                """ try:
                         print("Captcha Seguridad")
                         #Calculo la operacion de forma aleatoria para obtener el penultimo numero
                         resul_operacion=switch_captcha.get(random.randint(1,5))()
@@ -83,13 +91,13 @@ while ingreso:
                         break
                     except ValueError:
                         print("Por favor ingrese el resultado en numeros")
-                        continue
+                        continue"""
 
                 #Loop para validar captcha seguridad
                 while ingreso:
 
                     #Validar que la contraseña ingresada sea el valor verdadero de la credencial
-                    if captcha==723:
+                    if captcha==captcha_correct:
                         print("Sesión iniciada") #Mensaje de sesion iniciada
                         time.sleep(1) #Espera 1 seg
                         command = 'cls' #Comando clear en windows
