@@ -12,6 +12,7 @@ codigo_inver="12715"
 #Banderas para permanecer o salir de los while
 ingreso=True
 error=True
+favorite='0'
 
 #Este loop valida el nombre de usuario inicialmente
 while ingreso:
@@ -96,7 +97,7 @@ while ingreso:
                     if captcha==captcha_correct:
                         print("Sesión iniciada") #Mensaje de sesion iniciada
                         time.sleep(1) #Espera 1 seg
-                        command = 'cls' #Comando clear en windows
+                        command = 'clear' #Comando clear en windows
                         os.system(command) #Borra la consola
 
                         #Menu de opciones inicial, utilizando un diccionario
@@ -125,27 +126,29 @@ while ingreso:
                         #Loop para seleccionar opcion del menu
                         while ingreso:
                             print(menu) #Imprimir el menu inicial
-                            opcion=int(input("Elija una opción ")) #Elegir opcion
-                            print("\n") #Salto de linea
+                            #if favorite=='0':
+                            opcion=input("Elija una opción ") #Elegir opcion
+                            if favorite in ['1','2','3','4','5']:
+                                print(f"Usted ha elegido la opción {opcion}") #Salto de linea
 
                             #Condicionales para ingresar al menu seleccionado
-                            if opcion==1:
+                            if opcion=='1':
                                 continue
-                            elif opcion==2:
+                            elif opcion=='2':
                                 continue
-                            elif opcion==3:
+                            elif opcion=='3':
                                 continue
-                            elif opcion==4:
+                            elif opcion=='4':
                                 continue
-                            elif opcion==5:
+                            elif opcion=='5':
                                 continue
-                            elif opcion==6:
+                            elif opcion=='6':
                                 #Elegir opcion favorita del menu
-                                favorite=int(input("Seleccione opción favorita "))
-                                if favorite==1:
+                                favorite=input("Seleccione opción favorita ")
+                                if favorite=='1':
                                     adivinanzas()
                                     continue
-                                elif favorite==2:
+                                elif favorite=='2':
                                     adv_correct=adivinanzas()
                                     if adv_correct:
                                         #Pone la opcion 2 como 1 en el menu
@@ -159,7 +162,7 @@ while ingreso:
                                         continue
                                     else:
                                         continue
-                                elif favorite==3:
+                                elif favorite=='3':
                                     adv_correct=adivinanzas()
                                     if adv_correct:
                                         #Pone la opcion 3 como 1 en el menu
@@ -173,7 +176,7 @@ while ingreso:
                                         continue
                                     else:
                                         continue
-                                elif favorite==4:
+                                elif favorite=='4':
                                     adv_correct=adivinanzas()
                                     if adv_correct:
                                         #Pone la opcion 4 como 1 en el menu
@@ -187,7 +190,7 @@ while ingreso:
                                         continue
                                     else:
                                         continue
-                                elif favorite==5:
+                                elif favorite=='5':
                                     adv_correct=adivinanzas()
                                     if adv_correct:
                                         #Pone la opcion 5 como 1 en el menu
@@ -204,7 +207,7 @@ while ingreso:
                                 else:
                                     print("Error") #Muestro mensaje de error porque eligió una opcion del menu diferente 1 a 5
                                     ingreso=False #Cambio la bandera a False, para terminar el programa
-                            elif opcion==7:
+                            elif opcion=='7':
                                 print("Hasta pronto") #Sesión cerrada
                                 ingreso=False #Cambio la bandera a False, para terminar el programa
                             else:
