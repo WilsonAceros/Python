@@ -13,6 +13,7 @@ codigo_inver="12715"
 ingreso=True
 error=True
 favorite='0'
+contador=0
 
 #Este loop valida el nombre de usuario inicialmente
 while ingreso:
@@ -128,20 +129,20 @@ while ingreso:
                             print(menu) #Imprimir el menu inicial
                             #if favorite=='0':
                             opcion=input("Elija una opción ") #Elegir opcion
-                            if favorite in ['1','2','3','4','5']:
+                            if opcion in ['1','2','3','4','5']:
                                 print(f"Usted ha elegido la opción {opcion}") #Salto de linea
 
                             #Condicionales para ingresar al menu seleccionado
                             if opcion=='1':
-                                continue
+                                ingreso=False #Cambio la bandera a False, para terminar el programa
                             elif opcion=='2':
-                                continue
+                                ingreso=False #Cambio la bandera a False, para terminar el programa
                             elif opcion=='3':
-                                continue
+                                ingreso=False #Cambio la bandera a False, para terminar el programa
                             elif opcion=='4':
-                                continue
+                                ingreso=False #Cambio la bandera a False, para terminar el programa
                             elif opcion=='5':
-                                continue
+                                ingreso=False #Cambio la bandera a False, para terminar el programa
                             elif opcion=='6':
                                 #Elegir opcion favorita del menu
                                 favorite=input("Seleccione opción favorita ")
@@ -212,7 +213,10 @@ while ingreso:
                                 ingreso=False #Cambio la bandera a False, para terminar el programa
                             else:
                                 print("Error") #Muestro mensaje de error porque eligió una opcion que no esta en el menu
-                                ingreso=False #Cambio la bandera a False, para terminar el programa
+                                contador+=1#Cuando complete 3 errores sale del programa
+                                if contador==3:
+                                    ingreso=False#Cambio la bandera a False, para terminar el programa
+                                continue
                     else:
                         print("Error") #Muestro mensaje de error porque el captcha no coincide
                         ingreso=False #Cambio la bandera a False, para terminar el programa
