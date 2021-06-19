@@ -3,6 +3,8 @@ import time #Para poder usar el time.sleep()
 import os #Para poder usar os.system
 import platform
 import math
+import pandas as pd
+# from pandas import ExcelWriter
 
 #Mensaje de inicio
 print("Bienvenido al sistema de ubicación para zonas públicas WIFI")
@@ -18,6 +20,8 @@ norte=[]
 oriente=[]
 distancia=[]
 usuarios=[]
+t=[]
+zona=[]
 
 #Rango de coordendas
 Municipio=['Calamar','Bolivar']
@@ -148,34 +152,37 @@ zona_wifi=[[10.127,-74.950,0],[10.196,-74.935,0],[10.305,-75.040,2490],[10.196,-
 #     print (zona_wifi[x])
 #     print()
 
-usuario=input("Nombre de Usuario: ")
-#Validar que el usuario ingresado sea el valor verdadero de la credencial
-if usuario==codigo_grupo:
+# #RETO 1
+# usuario=input("Nombre de Usuario: ")
+# #Validar que el usuario ingresado sea el valor verdadero de la credencial
+# if usuario==codigo_grupo:
 
-    password=input("Contraseña: ")
+#     password=input("Contraseña: ")
 
-    #Validar que la contraseña ingresada sea el valor verdadero de la credencial
-    if password==codigo_inver:
+#     #Validar que la contraseña ingresada sea el valor verdadero de la credencial
+#     if password==codigo_inver:
 
-        print("Captcha Seguridad")
-        #Calculo la operacion de forma aleatoria para obtener el penultimo numero
-        resul_operacion=switch_captcha.get(random.randint(1,5))()
-        captcha_correct=str(721+resul_operacion)
-        #Guardo el resultado del captcha capturado del usuario
-        captcha=input(f"721+{resul_operacion}: ")
-        #Validar que la contraseña ingresada sea el valor verdadero de la credencial
-        if captcha==captcha_correct:
-            print("Sesión iniciada") #Mensaje de sesion iniciada
-            time.sleep(0) #Espera 1 seg
-            limpiar_consola()
-            ingreso_menu=True
-            #Loop para seleccionar opcion del menu
-        else:
-            print("Error") #Muestro mensaje de error porque el captcha no coincide
-    else:
-        print("Error") #Muestro mensaje de error porque la contraseña no coincide
-else:
-    print("Error") #Muestro mensaje de error porque el usuario no coincide
+#         print("Captcha Seguridad")
+#         #Calculo la operacion de forma aleatoria para obtener el penultimo numero
+#         resul_operacion=switch_captcha.get(random.randint(1,5))()
+#         captcha_correct=str(721+resul_operacion)
+#         #Guardo el resultado del captcha capturado del usuario
+#         captcha=input(f"721+{resul_operacion}: ")
+#         #Validar que la contraseña ingresada sea el valor verdadero de la credencial
+#         if captcha==captcha_correct:
+#             print("Sesión iniciada") #Mensaje de sesion iniciada
+#             time.sleep(0) #Espera 1 seg
+#             limpiar_consola()
+#             ingreso_menu=True
+#             #Loop para seleccionar opcion del menu
+#         else:
+#             print("Error") #Muestro mensaje de error porque el captcha no coincide
+#     else:
+#         print("Error") #Muestro mensaje de error porque la contraseña no coincide
+# else:
+#     print("Error") #Muestro mensaje de error porque el usuario no coincide
+
+ingreso_menu=True
 
 while ingreso_menu:
     mostrar_menu() #Imprimir el menu inicial
@@ -334,8 +341,10 @@ while ingreso_menu:
                     mensaje_indicacion(lat1,long1,lat2,long2)
                     d=d1
                     t=calcular_tiempo(d,velocidad_prom_bus,velocidad_prom_pie)
-                    print("Tiempo en bus: ",round((t[0]/60),2)," min")
-                    print("Tiempo a pie: ",round(((t[1]/60)/60),2)," hr")
+                    tb=round(t[0]/60,2)
+                    tp=round((t[1]/60)/60,2)
+                    print("Tiempo en bus: ",tb," min")
+                    print("Tiempo a pie: ",tp," hr")
                     salir=True
                     while salir:
                         sel=input("Presione 0 para salir ")
@@ -349,8 +358,10 @@ while ingreso_menu:
                     mensaje_indicacion(lat1,long1,lat2,long2)
                     d=d2
                     t=calcular_tiempo(d,velocidad_prom_bus,velocidad_prom_pie)
-                    print("Tiempo en bus: ",round((t[0]/60),2)," min")
-                    print("Tiempo a pie: ",round(((t[1]/60)/60),2)," hr")
+                    tb=round(t[0]/60,2)
+                    tp=round((t[1]/60)/60,2)
+                    print("Tiempo en bus: ",tb," min")
+                    print("Tiempo a pie: ",tp," hr")
                     salir=True
                     while salir:
                         sel=input("Presione 0 para salir ")
@@ -365,9 +376,65 @@ while ingreso_menu:
                 print("Error ubicación")
                 ingreso_menu=False #Cambio la bandera a False, para terminar el programa
     elif valores=="Guardar archivo con ubicación cercana":
-        ingreso_menu=False #Cambio la bandera a False, para terminar el programa
+        if coordenadas==[] or t==[]:
+            print("Error de alistamiento")
+            ingreso_menu=False #Cambio la bandera a False, para terminar el programa
+        else:
+            if indicaciones_llegada=='1':
+                index_min=index_min1
+            elif indicaciones_llegada=='2':
+                index_min=index_min2
+            #Creo el diccionario para exportar la informacion a un archivo.
+            #Tener en cuenta que se puede guardar siempre y cuando las listas tengan la misma longitud
+            informacion = {
+                'actual':[lat1,long1,0],
+                'zonawifi':zona_wifi[index_min],
+                'recorrido':[d,'Bus',str(tb)+' min']}
+            print(informacion)
+            opcion_exportar=input("¿Está de acuerdo con la información a exportar? Presione 1 para confirmar, 0 para regresar al menú principal ")
+            if opcion_exportar=='1':
+                print("Exportando archivo")
+                df = pd.DataFrame(informacion)
+                print(df)
+                #mode=a, funciona como un append dentro del archivo, no borra lo anterior
+                df.to_csv('FundamentosProgramacionMinTic/datos.csv', mode='w', index=False, header=True,sep=';',decimal='.',encoding='utf-8')
+
+                #RUTINA PARA CREAR ARCHIVO DE TEXTO PLANO
+                # z=[]
+                # for i in informacion:
+                #     z.append(i)
+                #     y=informacion[i]
+                #     for j in y:
+                #         z.append(str(j))
+                # print(z)
+                # cadena = " ".join(z)#Vuelve una lista en cadena string
+                # print(cadena)
+                # #Crea el archivo de texto, pero solo se le pueden ingresar string, no listas ni dict
+                # file = open("C:\MinTic\FundamentosProgramacion\CodigosFuentes\FundamentosProgramacionMinTic\datos.txt", "w")
+                # file.write(cadena+os.linesep)#Escribe la cadena
+                # file.close()#Cierra el archivo
+                # FORMA DE EDITAR EL ARCHIVO
+                # with open("datos.txt", "w") as archivo:
+                #   archivo.writelines("Hola")
+
+            elif opcion=='0':
+                continue
     elif valores=="Actualizar registros de zonas wifi desde archivo":
-        ingreso_menu=False #Cambio la bandera a False, para terminar el programa
+        archivo=pd.read_csv(r'FundamentosProgramacionMinTic/Betulia.csv',encoding='utf-8',delimiter=";")
+        print(archivo)
+        dat=archivo.values.tolist()
+        zona_wifi.clear()
+        for fila in dat:
+            for c in range(len(fila)):
+                zona.append(float(fila[c]))
+            zona_wifi.append(zona[-3:])
+        print(zona_wifi)
+
+        opcion_principal=input("Datos de coordenadas para zonas wifi actualizados, presione 0 para regresar al menú principal ")
+        if opcion_principal=='0':
+            continue
+        else:
+            ingreso_menu=False #Cambio la bandera a False, para terminar el programa
     elif valores=="Elegir opción de menú favorita":
         #Elegir opcion favorita del menu
         favorite=input("Seleccione opción favorita ")

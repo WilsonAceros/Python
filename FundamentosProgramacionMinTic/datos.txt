@@ -1,0 +1,1 @@
+actual 10.2 -75.0 zonawifi 10.127 -74.95 0 recorrido 7623.44 Bus 7.62 min A pie 4.38 hr
