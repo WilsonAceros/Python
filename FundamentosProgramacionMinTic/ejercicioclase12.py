@@ -19,7 +19,7 @@ for x in range(3):
         print(mat[x][y], end=" ")
     print()
 
-valor = int(input("Digitie valor a buscar: "))
+valor = int(input("Digite valor a buscar: "))
 for x in range(3):
     for y in range(2):
         if valor==mat[x][y]:
