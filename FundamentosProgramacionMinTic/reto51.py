@@ -3,7 +3,7 @@ import time #Para poder usar el time.sleep()
 import os #Para poder usar os.system
 import platform
 import math
-# import pandas as pd
+import pandas as pd
 # from pandas import ExcelWriter
 
 #Mensaje de inicio
@@ -391,71 +391,42 @@ while ingreso_menu:
             print(informacion)
             opcion_exportar=input("¿Está de acuerdo con la información a exportar? Presione 1 para confirmar, 0 para regresar al menú principal ")
             if opcion_exportar=='1':
-
-                #RUTINA PARA CREAR ARCHIVO CSV CON PANDAS
-                # df = pd.DataFrame(informacion)
-                # # print(df)
-                # #mode=a, funciona como un append dentro del archivo, no borra lo anterior
-                # df.to_csv('FundamentosProgramacionMinTic/datos.csv', mode='w', index=False, header=True,sep=';',decimal='.',encoding='utf-8')
+                print("Exportando archivo")
+                df = pd.DataFrame(informacion)
+                print(df)
+                #mode=a, funciona como un append dentro del archivo, no borra lo anterior
+                df.to_csv('FundamentosProgramacionMinTic/datos.csv', mode='w', index=False, header=True,sep=';',decimal='.',encoding='utf-8')
 
                 #RUTINA PARA CREAR ARCHIVO DE TEXTO PLANO
-                #Primero convierto el diccionario en un string
-                z=[]
-                for i in informacion:
-                    z.append(i)
-                    y=informacion[i]
-                    for j in y:
-                        z.append(str(j))
-                # print(z)51
-                cadena = ", ".join(z)#Vuelve una lista en cadena string
+                # z=[]
+                # for i in informacion:
+                #     z.append(i)
+                #     y=informacion[i]
+                #     for j in y:
+                #         z.append(str(j))
+                # print(z)
+                # cadena = " ".join(z)#Vuelve una lista en cadena string
                 # print(cadena)
-
-                #Crea el archivo de texto, pero solo se le pueden ingresar string, no listas ni dict
-                file = open("datos.txt", "w")
-                file.write(cadena+os.linesep)#Escribe la cadena+os.linesep
-                file.close()#Cierra el archivo
-
+                # #Crea el archivo de texto, pero solo se le pueden ingresar string, no listas ni dict
+                # file = open("C:\MinTic\FundamentosProgramacion\CodigosFuentes\FundamentosProgramacionMinTic\datos.txt", "w")
+                # file.write(cadena+os.linesep)#Escribe la cadena
+                # file.close()#Cierra el archivo
                 # FORMA DE EDITAR EL ARCHIVO
                 # with open("datos.txt", "w") as archivo:
-                #     archivo.writelines("Hola")
-                print("Exportando archivo")
-                ingreso_menu=False #Cambio la bandera a False, para terminar el programa
+                #   archivo.writelines("Hola")
+
             elif opcion=='0':
                 continue
     elif valores=="Actualizar registros de zonas wifi desde archivo":
-        # LEER ARCHIVO CON PANDAS
-        # archivo=pd.read_csv(r'FundamentosProgramacionMinTic/Betulia.csv',encoding='utf-8',delimiter=";")
-        # print(archivo)
-        # dat=archivo.values.tolist()
-
-        #Abre el archivo, pero solo se le pueden ingresar string, no listas ni dict
-        archivo = open("Betulia.txt", "r")
-        dat=archivo.read()#Escribe la cadena+os.linesep
-        # print(dat)
-        archivo.close()#Cierra el archivo
-        n=""
-        c=0
+        archivo=pd.read_csv(r'FundamentosProgramacionMinTic/Betulia.csv',encoding='utf-8',delimiter=";")
+        print(archivo)
+        dat=archivo.values.tolist()
         zona_wifi.clear()
-        for fila_interna in dat:
-            if fila_interna==',':
-                zona.append(float(n))
-                # print(n)
-                # print(zona)
-                n=""
-                c+=1
-                if c>2:
-                    zona_wifi.append(zona)
-                    zona=[]
-                    c=0
-            else:
-                n=n+fila_interna
-        # print(zona_wifi)
-        # zona_wifi.clear()
-        # for fila in dat:
-        #     for c in range(len(fila)):
-        #         zona.append(float(fila[c]))
-        #     zona_wifi.append(zona[-3:])
-        # print(zona_wifi)
+        for fila in dat:
+            for c in range(len(fila)):
+                zona.append(float(fila[c]))
+            zona_wifi.append(zona[-3:])
+        print(zona_wifi)
 
         opcion_principal=input("Datos de coordenadas para zonas wifi actualizados, presione 0 para regresar al menú principal ")
         if opcion_principal=='0':
