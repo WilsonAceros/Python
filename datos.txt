@@ -1,0 +1,1 @@
+actual, 10.3, -75.0, 0, zonawifi, 6.125, -75.966, 109.0, recorrido, 16360.19, Bus, 16.36 min
