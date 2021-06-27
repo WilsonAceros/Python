@@ -427,6 +427,13 @@ while ingreso_menu:
         # archivo=pd.read_csv(r'FundamentosProgramacionMinTic/Betulia.csv',encoding='utf-8',delimiter=";")
         # print(archivo)
         # dat=archivo.values.tolist()
+        # print(zona_wifi)
+        # zona_wifi.clear()
+        # for fila in dat:
+        #     for c in range(len(fila)):
+        #         zona.append(float(fila[c]))
+        #     zona_wifi.append(zona[-3:])
+        # print(zona_wifi)
 
         #Abre el archivo, pero solo se le pueden ingresar string, no listas ni dict
         archivo = open("Betulia.txt", "r")
@@ -449,13 +456,6 @@ while ingreso_menu:
                     c=0
             else:
                 n=n+fila_interna
-        # print(zona_wifi)
-        # zona_wifi.clear()
-        # for fila in dat:
-        #     for c in range(len(fila)):
-        #         zona.append(float(fila[c]))
-        #     zona_wifi.append(zona[-3:])
-        # print(zona_wifi)
 
         opcion_principal=input("Datos de coordenadas para zonas wifi actualizados, presione 0 para regresar al menú principal ")
         if opcion_principal=='0':
