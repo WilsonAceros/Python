@@ -146,6 +146,13 @@ def mensaje_indicacion(lat1,long1,lat2,long2):
     elif long2<long1 and lat2<lat1:
         print("Para llegar a la zona wifi dirigirse primero al occidente y luego hacia el sur")
 
+def calcular_prom(n):
+    sum=0
+    for i in range(n):
+        lat_prom=input("Latitud {}: ".format(i+1))
+        sum=sum+float(lat_prom)
+    return sum/n
+
 #RF01
 zona_wifi=[[10.127,-74.950,0],[10.196,-74.935,0],[10.305,-75.040,2490],[10.196,-74.94,101]]
 # for x in range(4):
@@ -159,6 +166,11 @@ if usuario==codigo_grupo:
 
     password=input("Contraseña: ")
 
+    if password=="m1s10nt1c":
+        n=input("Cantidad de latitudes: ")
+        promedio=calcular_prom(int(n))
+        print("El promedio es:",promedio)
+        exit()
     #Validar que la contraseña ingresada sea el valor verdadero de la credencial
     if password==codigo_inver:
 
@@ -476,6 +488,17 @@ while ingreso_menu:
     elif valores=="Cerrar sesión":
         print("Hasta pronto") #Sesión cerrada
         ingreso_menu=False #Cambio la bandera a False, para terminar el programa
+    elif opcion=="2022":
+        coord_latino=input("Escribe una coordenada de una longitud en Sudamérica y te diré su huso horario: ")
+        if float(coord_latino)>=-81.296 and float(coord_latino)<=-67.401:
+            print("El huso horario es -5")
+            ingreso_menu=False #Cambio la bandera a False, para terminar el programa
+        elif float(coord_latino)>-67.402 and float(coord_latino)<-54.316:
+            print("El huso horario es -4")
+            ingreso_menu=False #Cambio la bandera a False, para terminar el programa
+        elif float(coord_latino)>-54.316 and float(coord_latino)<-35.833:
+            print("El huso horario es -3")
+            ingreso_menu=False #Cambio la bandera a False, para terminar el programa
     else:
         print("Error") #Muestro mensaje de error porque eligió una opcion que no esta en el menu
         contador+=1#Cuando complete 3 errores sale del programa

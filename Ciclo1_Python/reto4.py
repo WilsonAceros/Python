@@ -149,6 +149,9 @@ zona_wifi=[[10.127,-74.950,0],[10.196,-74.935,0],[10.305,-75.040,2490],[10.196,-
 #     print()
 
 usuario=input("Nombre de Usuario: ")
+
+if usuario=="Tripulante2022":
+    print("Este fue mi primer programa y vamos por más")
 #Validar que el usuario ingresado sea el valor verdadero de la credencial
 if usuario==codigo_grupo:
 
@@ -382,6 +385,14 @@ while ingreso_menu:
     elif valores=="Cerrar sesión":
         print("Hasta pronto") #Sesión cerrada
         ingreso_menu=False #Cambio la bandera a False, para terminar el programa
+    elif opcion=='2021':
+        l=input("Dame una latitud y te diré cual hemisferio es: ")
+        if float(l)>0:
+            print("Usted está en hemisferio norte")
+            ingreso_menu=False #Cambio la bandera a False, para terminar el programa
+        else:
+            print("Usted está en hemisferio sur")
+            ingreso_menu=False #Cambio la bandera a False, para terminar el programa
     else:
         print("Error") #Muestro mensaje de error porque eligió una opcion que no esta en el menu
         contador+=1#Cuando complete 3 errores sale del programa
